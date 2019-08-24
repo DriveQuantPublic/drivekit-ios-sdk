@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = "Networking"
-  s.version        = "0.0.1-alpha1"
+  s.version        = "0.0.1-alpha2"
   s.summary        = "DriveKit Networking"
   s.homepage       = "https://www.drivequant.com"
   s.license        = 'Private'
