@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = "DriveKitCore"
-  s.version        = "1.0.0-alpha5"
+  s.version        = "1.0.0-alpha6"
   s.summary        = "DriveKit Core"
   s.homepage       = "https://www.drivequant.com"
   s.license        = 'Private'
