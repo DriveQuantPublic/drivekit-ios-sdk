@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = "DriveKitTripAnalysis"
-  s.version        = "1.1.0-beta2"
+  s.version        = "1.1.0-beta3"
   s.summary        = "DriveKit Trip Analysis"
   s.homepage       = "https://www.drivequant.com"
   s.license        = 'Private'
