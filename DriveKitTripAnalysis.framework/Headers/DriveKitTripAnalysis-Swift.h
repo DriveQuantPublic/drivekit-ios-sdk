@@ -183,6 +183,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import UIKit;
 #endif
 
@@ -200,6 +201,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="DriveKitTripAnalysis",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+
 
 
 
@@ -392,6 +395,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreLocation;
 @import UIKit;
 #endif
 
@@ -409,6 +413,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="DriveKitTripAnalysis",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+
 
 
 
