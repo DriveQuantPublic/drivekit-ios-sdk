@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = "DriveKitDBAchievementAccess"
-  s.version        = "1.2.4"
+  s.version        = "1.3.0"
   s.summary        = "DriveKit Achievement Database Access"
   s.homepage       = "https://www.drivequant.com"
   s.license        = 'Private'
