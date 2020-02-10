@@ -11,5 +11,6 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = 'DriveKitDriverData.framework'
   s.dependency "DriveKitCore"
   s.dependency "Networking"
+  s.dependency "DriveKitDBTripAccess"
   s.requires_arc = true
 end
