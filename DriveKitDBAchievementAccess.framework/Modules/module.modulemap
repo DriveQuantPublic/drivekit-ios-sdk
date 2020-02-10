@@ -1,0 +1,11 @@
+framework module DriveKitDBAchievementAccess {
+  umbrella header "DriveKitDBAchievementAccess.h"
+
+  export *
+  module * { export * }
+}
+
+module DriveKitDBAchievementAccess.Swift {
+    header "DriveKitDBAchievementAccess-Swift.h"
+    requires objc
+}
