@@ -184,6 +184,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreLocation;
+@import Foundation;
 @import ObjectiveC;
 @import UIKit;
 #endif
@@ -204,8 +205,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis6Beacon")
+@interface Beacon : NSObject
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid major:(NSInteger)major minor:(NSInteger)minor OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid major:(NSInteger)major OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 SWIFT_CLASS("_TtC20DriveKitTripAnalysis13BluetoothData")
 @interface BluetoothData : NSObject
+- (nonnull instancetype)initWithName:(NSString * _Nonnull)name macAddress:(NSString * _Nonnull)macAddress OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -220,6 +232,109 @@ SWIFT_CLASS("_TtC20DriveKitTripAnalysis19BluetoothDeviceData")
 
 
 
+
+typedef SWIFT_ENUM(NSInteger, CancelTrip, closed) {
+  CancelTripUser = 0,
+  CancelTripHighspeed = 1,
+  CancelTripNoSpeed = 2,
+  CancelTripNoBeacon = 3,
+  CancelTripMissingConfiguration = 4,
+  CancelTripNoGPSData = 5,
+  CancelTripReset = 6,
+  CancelTripBeaconNoSpeed = 7,
+};
+
+@protocol TripListener;
+@class TripVehicle;
+enum State : NSInteger;
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis20DriveKitTripAnalysis")
+@interface DriveKitTripAnalysis : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) DriveKitTripAnalysis * _Nonnull shared;)
++ (DriveKitTripAnalysis * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (void)initializeWithTripListener:(id <TripListener> _Nonnull)tripListener appLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)appLaunchOptions;
+- (void)activateLowPowerModeWithEnable:(BOOL)enable;
+- (void)activateAutoStartWithEnable:(BOOL)enable;
+- (void)setBeaconRequiredWithRequired:(BOOL)required;
+- (void)enableSharePositionWithEnable:(BOOL)enable;
+- (void)setVehicleIdWithId:(NSString * _Nullable)id;
+- (void)setVehicleWithVehicle:(TripVehicle * _Nullable)vehicle;
+- (void)setStopTimeOutWithTimeOut:(NSInteger)timeOut;
+- (void)setBeaconsWithBeacons:(NSArray<Beacon *> * _Nonnull)beacons;
+- (void)setBluetoothDevicesWithBluetoothDevices:(NSArray<BluetoothData *> * _Nonnull)bluetoothDevices;
+- (NSArray<BluetoothData *> * _Nonnull)getAvailableBluetoothDevices SWIFT_WARN_UNUSED_RESULT;
+- (void)startTrip;
+- (void)stopTrip;
+- (void)cancelTrip;
+- (BOOL)isConfigured SWIFT_WARN_UNUSED_RESULT;
+- (void)checkTripToRepost;
+- (BOOL)isTripRunning SWIFT_WARN_UNUSED_RESULT;
+- (enum State)getRecorderState SWIFT_WARN_UNUSED_RESULT;
+- (NSDate * _Nonnull)temporaryDeactivationDate SWIFT_WARN_UNUSED_RESULT;
+- (void)temporaryDeactivateSDKWithMinutes:(NSInteger)minutes;
+- (void)cancelTemporaryDeactivation;
+- (void)reset;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis11PostGeneric")
+@interface PostGeneric : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis19PostGenericResponse")
+@interface PostGenericResponse : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, StartMode, closed) {
+  StartModeGps = 1,
+  StartModeBeacon = 2,
+  StartModeManual = 3,
+  StartModeGeozone = 4,
+  StartModeBluetooth = 5,
+  StartModeBluetooth_unknown = 6,
+};
+
+typedef SWIFT_ENUM(NSInteger, State, closed) {
+  StateInactive = 0,
+  StateStarting = 1,
+  StateRunning = 2,
+  StateStopping = 3,
+  StateSending = 4,
+};
+
+@class TripPoint;
+@class CLLocation;
+
+SWIFT_PROTOCOL("_TtP20DriveKitTripAnalysis12TripListener_")
+@protocol TripListener
+- (void)tripStartedWithStartMode:(enum StartMode)startMode;
+- (void)tripPointWithTripPoint:(TripPoint * _Nonnull)tripPoint;
+- (void)tripFinishedWithPost:(PostGeneric * _Nonnull)post response:(PostGenericResponse * _Nonnull)response;
+- (void)tripCancelledWithCancelTrip:(enum CancelTrip)cancelTrip;
+- (void)tripSavedForRepost;
+- (void)beaconDetected;
+- (void)significantLocationChangeDetectedWithLocation:(CLLocation * _Nonnull)location;
+- (void)sdkStateChangedWithState:(enum State)state;
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis9TripPoint")
+@interface TripPoint : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis11TripVehicle")
+@interface TripVehicle : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 
@@ -413,6 +528,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreLocation;
+@import Foundation;
 @import ObjectiveC;
 @import UIKit;
 #endif
@@ -433,8 +549,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis6Beacon")
+@interface Beacon : NSObject
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid major:(NSInteger)major minor:(NSInteger)minor OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid major:(NSInteger)major OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithProximityUuid:(NSString * _Nonnull)proximityUuid OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 SWIFT_CLASS("_TtC20DriveKitTripAnalysis13BluetoothData")
 @interface BluetoothData : NSObject
+- (nonnull instancetype)initWithName:(NSString * _Nonnull)name macAddress:(NSString * _Nonnull)macAddress OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -449,6 +576,109 @@ SWIFT_CLASS("_TtC20DriveKitTripAnalysis19BluetoothDeviceData")
 
 
 
+
+typedef SWIFT_ENUM(NSInteger, CancelTrip, closed) {
+  CancelTripUser = 0,
+  CancelTripHighspeed = 1,
+  CancelTripNoSpeed = 2,
+  CancelTripNoBeacon = 3,
+  CancelTripMissingConfiguration = 4,
+  CancelTripNoGPSData = 5,
+  CancelTripReset = 6,
+  CancelTripBeaconNoSpeed = 7,
+};
+
+@protocol TripListener;
+@class TripVehicle;
+enum State : NSInteger;
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis20DriveKitTripAnalysis")
+@interface DriveKitTripAnalysis : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) DriveKitTripAnalysis * _Nonnull shared;)
++ (DriveKitTripAnalysis * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (void)initializeWithTripListener:(id <TripListener> _Nonnull)tripListener appLaunchOptions:(NSDictionary<UIApplicationLaunchOptionsKey, id> * _Nullable)appLaunchOptions;
+- (void)activateLowPowerModeWithEnable:(BOOL)enable;
+- (void)activateAutoStartWithEnable:(BOOL)enable;
+- (void)setBeaconRequiredWithRequired:(BOOL)required;
+- (void)enableSharePositionWithEnable:(BOOL)enable;
+- (void)setVehicleIdWithId:(NSString * _Nullable)id;
+- (void)setVehicleWithVehicle:(TripVehicle * _Nullable)vehicle;
+- (void)setStopTimeOutWithTimeOut:(NSInteger)timeOut;
+- (void)setBeaconsWithBeacons:(NSArray<Beacon *> * _Nonnull)beacons;
+- (void)setBluetoothDevicesWithBluetoothDevices:(NSArray<BluetoothData *> * _Nonnull)bluetoothDevices;
+- (NSArray<BluetoothData *> * _Nonnull)getAvailableBluetoothDevices SWIFT_WARN_UNUSED_RESULT;
+- (void)startTrip;
+- (void)stopTrip;
+- (void)cancelTrip;
+- (BOOL)isConfigured SWIFT_WARN_UNUSED_RESULT;
+- (void)checkTripToRepost;
+- (BOOL)isTripRunning SWIFT_WARN_UNUSED_RESULT;
+- (enum State)getRecorderState SWIFT_WARN_UNUSED_RESULT;
+- (NSDate * _Nonnull)temporaryDeactivationDate SWIFT_WARN_UNUSED_RESULT;
+- (void)temporaryDeactivateSDKWithMinutes:(NSInteger)minutes;
+- (void)cancelTemporaryDeactivation;
+- (void)reset;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis11PostGeneric")
+@interface PostGeneric : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis19PostGenericResponse")
+@interface PostGenericResponse : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, StartMode, closed) {
+  StartModeGps = 1,
+  StartModeBeacon = 2,
+  StartModeManual = 3,
+  StartModeGeozone = 4,
+  StartModeBluetooth = 5,
+  StartModeBluetooth_unknown = 6,
+};
+
+typedef SWIFT_ENUM(NSInteger, State, closed) {
+  StateInactive = 0,
+  StateStarting = 1,
+  StateRunning = 2,
+  StateStopping = 3,
+  StateSending = 4,
+};
+
+@class TripPoint;
+@class CLLocation;
+
+SWIFT_PROTOCOL("_TtP20DriveKitTripAnalysis12TripListener_")
+@protocol TripListener
+- (void)tripStartedWithStartMode:(enum StartMode)startMode;
+- (void)tripPointWithTripPoint:(TripPoint * _Nonnull)tripPoint;
+- (void)tripFinishedWithPost:(PostGeneric * _Nonnull)post response:(PostGenericResponse * _Nonnull)response;
+- (void)tripCancelledWithCancelTrip:(enum CancelTrip)cancelTrip;
+- (void)tripSavedForRepost;
+- (void)beaconDetected;
+- (void)significantLocationChangeDetectedWithLocation:(CLLocation * _Nonnull)location;
+- (void)sdkStateChangedWithState:(enum State)state;
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis9TripPoint")
+@interface TripPoint : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC20DriveKitTripAnalysis11TripVehicle")
+@interface TripVehicle : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 

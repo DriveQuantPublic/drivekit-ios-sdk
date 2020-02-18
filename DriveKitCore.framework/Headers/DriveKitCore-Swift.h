@@ -184,6 +184,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Foundation;
+@import ObjectiveC;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -202,6 +203,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+@class GlobalConfig;
+
+SWIFT_CLASS("_TtC12DriveKitCore8DriveKit")
+@interface DriveKit : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) DriveKit * _Nonnull shared;)
++ (DriveKit * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+@property (nonatomic, strong) GlobalConfig * _Nonnull config;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (void)initialize;
+- (BOOL)isConfigured SWIFT_WARN_UNUSED_RESULT;
+- (void)setApiKeyWithKey:(NSString * _Nonnull)key;
+- (void)setUserIdWithUserId:(NSString * _Nonnull)userId;
+- (void)registerUserWithUserId:(NSString * _Nonnull)userId;
+- (void)enableSandboxModeWithEnable:(BOOL)enable;
+- (void)enableLogging;
+- (void)disableLogging;
+- (void)reset;
+@end
+
+
+SWIFT_CLASS("_TtC12DriveKitCore12GlobalConfig")
+@interface GlobalConfig : NSObject
+- (NSString * _Nullable)getApiKey SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getUserId SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -393,6 +422,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import Foundation;
+@import ObjectiveC;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -411,6 +441,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+
+@class GlobalConfig;
+
+SWIFT_CLASS("_TtC12DriveKitCore8DriveKit")
+@interface DriveKit : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) DriveKit * _Nonnull shared;)
++ (DriveKit * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+@property (nonatomic, strong) GlobalConfig * _Nonnull config;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (void)initialize;
+- (BOOL)isConfigured SWIFT_WARN_UNUSED_RESULT;
+- (void)setApiKeyWithKey:(NSString * _Nonnull)key;
+- (void)setUserIdWithUserId:(NSString * _Nonnull)userId;
+- (void)registerUserWithUserId:(NSString * _Nonnull)userId;
+- (void)enableSandboxModeWithEnable:(BOOL)enable;
+- (void)enableLogging;
+- (void)disableLogging;
+- (void)reset;
+@end
+
+
+SWIFT_CLASS("_TtC12DriveKitCore12GlobalConfig")
+@interface GlobalConfig : NSObject
+- (NSString * _Nullable)getApiKey SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getUserId SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
