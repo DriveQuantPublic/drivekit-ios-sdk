@@ -1,14 +1,14 @@
 Pod::Spec.new do |s|
   s.name           = "DriveKitDBAchievementAccess"
-  s.version        = "1.3.0"
+  s.version        = "1.3.2"
   s.summary        = "DriveKit Achievement Database Access"
-  s.homepage       = "https://www.drivequant.com"
-  s.license        = 'Private'
+  s.homepage       = "https://docs.drivequant.com"
+  s.license        = { :type => 'Apache-2.0', :file => 'LICENSE' }
   s.author         = { "DriveQuant" => "developer@drivequant.com" }
   s.platform       = :ios, '10.0'
-  s.source         = { :git => "https://github.com/DriveQuantPublic/drivekit-ios-sdk.git", :tag => "${s.version}" }
+  s.source         = { :http => "https://maven.drivequant.com/repository/ios-drivekit/com/drivequant/drivekit-db-achievement-access/#{s.version.to_s}/drivekit-db-achievement-access-#{s.version.to_s}.zip" }
 
   s.ios.vendored_frameworks = 'DriveKitDBAchievementAccess.framework'
-  s.dependency "DriveKitCore"
+  s.dependency "DriveKitCore", s.version.to_s
   s.requires_arc = true
 end
