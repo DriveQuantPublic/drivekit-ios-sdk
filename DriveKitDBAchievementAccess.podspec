@@ -10,5 +10,10 @@ Pod::Spec.new do |s|
 
   s.ios.vendored_frameworks = 'DriveKitDBAchievementAccess.framework'
   s.dependency "DriveKitCore", s.version.to_s
+  s.frameworks = "CoreData"
   s.requires_arc = true
+  
+  s.info_plist = {
+    'CFBundleIdentifier' => 'com.drivequant.drivekit-db-achievement-access'
+  }
 end

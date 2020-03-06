@@ -9,7 +9,10 @@ Pod::Spec.new do |s|
   s.source         = { :http => "https://maven.drivequant.com/repository/ios-drivekit/com/drivequant/drivekit-driver-data/#{s.version.to_s}/drivekit-driver-data-#{s.version.to_s}.zip" }
 
   s.ios.vendored_frameworks = 'DriveKitDriverData.framework'
-  s.dependency "DriveKitCore", s.version.to_s
   s.dependency "DriveKitDBTripAccess", s.version.to_s
   s.requires_arc = true
+
+  s.info_plist = {
+    'CFBundleIdentifier' => 'com.drivequant.drivekit-driverdata'
+  }
 end

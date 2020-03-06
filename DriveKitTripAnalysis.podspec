@@ -10,5 +10,10 @@ Pod::Spec.new do |s|
 
   s.ios.vendored_frameworks = 'DriveKitTripAnalysis.framework'
   s.dependency "DriveKitCore", s.version.to_s
+  s.frameworks = "CoreLocation", "CoreMotion"
   s.requires_arc = true
+
+  s.info_plist = {
+    'CFBundleIdentifier' => 'com.drivequant.drivekit-trip-analysis'
+  }
 end
