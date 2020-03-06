@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = "DriveKitCore"
-  s.version        = "1.3.2"
+  s.version        = "1.3.3"
   s.summary        = "DriveKit Core"
   s.homepage       = "https://docs.drivequant.com"
   s.license        = { :type => 'Apache-2.0', :file => 'LICENSE' }
